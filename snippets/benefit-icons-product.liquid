@@ -1,0 +1,64 @@
+{% comment %}
+<div class="benefit-icons-product">
+<div class="icons">
+  <div class="icon-block">
+    {% include 'icon-moneyBack.svg' %}
+    <p>30-DAY Money <span>Back Guarantee</span></p>
+  </div>
+  <div class="icon-block larger">
+    {% include 'icon-shipping.svg' %}
+    {% if km-oos %}
+      <p id="free-ship-benefit">Free Shipping</p>
+    {% else %}
+      <p id="free-ship-benefit">Free Shipping: <span>2-5 business days</span></p>
+    {% endif %}
+  </div>
+  <div class="icon-block">
+    {% include 'icon-warranty.svg' %}
+    <p>1-Year <span>Warranty</span></p>
+  </div>
+</div>
+{% endcomment %}
+<div class="product-trust">
+  {% include 'trust-banner' %}
+</div>
+{% if product.handle == "kardiamobile" %}
+<div class="review">
+  <div class="h2">Wonderful!</div>
+  <span class="name">Ash, April 2021</span>
+  {% include 'icon-five-stars.svg' %}
+  <p>This is an amazing little monitor! I recently began having heart palpitations in the middle of the night, and it’s very easy to just check my heart rhythm with Kardia to make sure I’m not having any serious arrhythmias. Kardia has given me so much peace of mind!</p>
+</div>
+{% endif %}
+{% if product.handle == "kardiamobile6l" %}
+<div class="review-flex">
+<div class="review">
+  <div class="h2">Love it!!!</div>
+  <span class="name">Roger, May 2021</span>
+  {% include 'icon-five-stars.svg' %}
+  <p>I started out with the single lead Kardia and it led to me being tested for AFIB. After a year of monitoring my AFIB I was able to see it was getting more frequent and longer in duration. I had an AFIB Ablation and decided to get the newer 6 lead Kardia to monitor how my heart responded to the ablation surgery. The single lead is great but the 6 lead is amazing. <span class="complete-6l-review" style="display: none;">It has a longer range and no interference. My heart surgeon loves the printouts I give his staff and he has gotten a much better ideal of how successful the ablation surgery was. Both Kardias are great but if you have serious AFIB like I did you need the 6 lead Kardia. Worth every penny! </span>
+    <span
+      id="read-more-6l-review"
+      class="read-more-review ga-tracker"
+      data-action="Clicked Read More"
+      data-category="Review Link"
+      data-label="KardiaMobile 6L"
+      >Read more</span>
+  </p>
+</div>
+<div class="review">
+  <div class="h2">Great device great value and exceptional data.</div>
+  <span class="name">hk, April 2021</span>
+  {% include 'icon-five-stars.svg' %}
+  <p>The 6L arrived on time and worked perfectly right out of the box! It is exceptional and provides the additional data I wanted and was able to share with my cardiologist online! Thank you
+  </p>
+</div>
+</div>
+{% endif %}
+{% if product.handle == "kardiaband" %}
+<div class="review">
+  <div class="h2 fullWidth">Worth the Price and Peace of Mind</div>
+  <span class="name">Mike on February 1, 2018</span>
+  <p>I had an AFib incident recently which the watch detected, recorded, and alerted me. It alerts you if it sees an irregular pattern and you can take the ekg trace on the spot. My cardiologist loves the reports it produces. What makes the band easy is if it occurs at night you get the alert.</p>
+</div>
+{% endif %}

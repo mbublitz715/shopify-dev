@@ -1,0 +1,181 @@
+{% assign baseUrl = 'https://www.alivecor.com' %}
+{% if shop.domain contains '.co.uk' %}
+  {% assign baseUrl = 'https://www.alivecor.co.uk' %}
+{% endif %}
+{% assign productActive = false %}
+{% assign kmActive = false %}
+{% assign km6lActive = false %}
+{% assign kcActive = false %}
+{% assign kmCardActive = false %}
+{% if template == 'product' and product.handle == 'kardiamobile' %}
+  {% assign productActive = true %}
+  {% assign kmActive = true %}
+{% endif %}
+{% if template == 'product.kardiamobile6l' and product.handle == 'kardiamobile6l' %}
+  {% assign productActive = true %}
+  {% assign km6lActive = true %}
+{% endif %}
+{% if template == 'product.kardiacare' %}
+  {% assign productActive = true %}
+  {% assign kcActive = true %}
+{% endif %}
+{% if template == 'product.kardiamobile-card' %}
+  {% assign productActive = true %}
+  {% assign kmCardActive = true %}
+{% endif %}
+
+<header class="navigation" role="banner">
+  {% include 'banner-discount' %}
+  <div class="navigation-wrapper">
+    <a href="{{ baseUrl }}" class="logo" aria-label="AliveCor Store Home">
+      {% include "alivecor-logo-teal.svg" %}
+    </a>
+    <div class="mobile-only">
+      <span class="mobile-buy">
+        <a href="/cart" class="site-header__cart-toggle js-drawer-open-right" aria-controls="CartDrawer" aria-expanded="false">
+          <img src="{{ 'store_icon_cart@3x.png' | asset_url }}" alt="Shopping Cart" />
+            <span id="CartCount">
+              {% if cart.item_count > 0 %}
+                {{ cart.item_count }}
+              {% else %}
+                &nbsp;
+              {% endif %}
+            </span>
+        </a>
+      </span>
+      <button class="navigation-menu-button navicon"
+        id="js-mobile-menu"
+        aria-expanded="false"
+        aria-label="Open Navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <nav role="navigation">
+    <div id="mobile-overlay">
+      <button id="js-mobile-menu-close"
+        aria-label="Close Navigation menu">
+      </button>
+      <ul id="js-navigation-menu" class="navigation-menu">
+
+        <li class="nav-link{% if productActive %} active{% endif %}" id="products-menu">
+          <a tabindex="0">
+            Products
+          </a>
+          <div class="dropdown">
+            <ul>
+              <li>
+                <a class="ga-nav-tracker" href="/">Shop All Products</a>
+              </li>
+              <li class="{% if kmCardActive %} active{% endif %}">
+                <a class="ga-nav-tracker" href="/products/kardiamobile-card"><span class="new-badge">NEW</span>KardiaMobile Card</a>
+              </li>
+              <li class="{% if kmActive %} active{% endif %}">
+                <a class="ga-nav-tracker" href="/products/kardiamobile">KardiaMobile</a>
+              </li>
+              <li class="{% if km6lActive %} active{% endif %}">
+                <a class="ga-nav-tracker" href="/products/kardiamobile6l">KardiaMobile 6L</a>
+              </li>
+              <li class="{% if kcActive %} active{% endif %}">
+                <a class="ga-nav-tracker" href="/products/kardiacare">KardiaCare</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="nav-link" id="about-menu">
+          <a tabindex="0">
+            About
+          </a>
+          <div class="dropdown">
+            <ul>
+              <li>
+                <a class="ga-nav-tracker" href="{{ baseUrl }}/mission">Our Mission</a>
+              </li>
+              <li>
+                <a class="ga-nav-tracker" href="{{ baseUrl }}/leadership-team">Leadership Team</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="nav-link">
+          <a class="ga-nav-tracker" href="https://clinicians.alivecor.com">
+            Professionals
+          </a>
+        </li>
+
+        <li class="nav-link">
+          <a class="ga-nav-tracker" href="{{ baseUrl }}/blog">
+            Articles
+          </a>
+        </li>
+
+        <li class="nav-link">
+          <a class="ga-nav-tracker" href="https://alivecor.zendesk.com/hc">
+            Support
+          </a>
+        </li>
+
+        <li class="nav-link">
+          <a class="ga-nav-tracker" href="{{ baseUrl }}/international">
+            International
+          </a>
+        </li>
+
+        <li class="nav-link no-mobile">
+          <a href="/cart" class="site-header__cart-toggle js-drawer-open-right" aria-controls="CartDrawer" aria-expanded="false">
+            <img src="{{ 'store_icon_cart@3x.png' | asset_url }}" alt="Shopping Cart" />
+              {% if cart.item_count > 0 %}
+              <span id="CartCount">
+                {{ cart.item_count }}
+              </span>
+              {% endif %}
+          </a>
+        </li>
+
+        <li class="nav-link free-ship no-mobile">
+          {% if shop.domain == 'store.alivecor.com' %}
+            FREE Shipping<span style="padding: 0 8px;">|</span>HSA/FSA Accepted
+          {% else %}
+            {{ 'layout.navigation.free_ship' | t }}
+          {% endif %}
+          {% comment %}
+            If customer accounts are enabled, provide login and create account links
+          {% endcomment %}
+          {% if shop.customer_accounts_enabled %}
+            <div class="float accountLinks">
+              {% if customer %}
+                {% if customer.first_name != blank %}
+                  {% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
+                  {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
+                {% else %}
+                  <a href="/account">{{ 'layout.customer.account' | t }}</a>
+                {% endif %}
+                | {{ 'layout.customer.log_out' | t | customer_logout_link }}
+              {% else %}
+                {{ 'layout.customer.log_in' | t | customer_login_link }}
+                {% if shop.customer_accounts_optional %}
+                | {{ 'layout.customer.create_account' | t | customer_register_link }}
+                {% endif %}
+              {% endif %}
+            </div>
+          {% endif %}
+        </li>
+      </ul>
+      </div>
+    </nav>
+  </div>
+  <div>          
+  {% comment %}
+    Show number of items in the cart and total cost in the /cart link
+
+    Ajax Cart Notes:
+      - #cartCount updates the total number of items in the cart
+      - #cartCost updates the total cost of the cart
+      - Documentation:  http://shopify.com/timber#ajax-cart
+  {% endcomment %}
+  </div>
+</header>

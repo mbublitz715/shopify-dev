@@ -1,0 +1,238 @@
+<form action="/cart/add" method="post" enctype="multipart/form-data" id="kardiaCareProductAddToCartForm" class="AddToCartForm form-vertical" data-productid="{{product.id}}" onsubmit="addToCartKardiaCareRecurring(event, this)">
+{% comment %}{% if product.available %}{% include 'subscription-product' %}{% endif %}{% endcomment %}
+    <div class="kardiacare-products">
+      {% capture 1year_title %}
+        1-Year Plan
+      {% endcapture %}
+      {% capture 2year_title %}
+        2-Year Plan
+      {% endcapture %}
+      {% capture 1month_title %}
+        Monthly Plan
+      {% endcapture %}
+      {% assign 1month_price = "$9.99/month" %}
+      {% assign 1year_price = "$99/year" %}
+      {% assign 2year_price = "$179/2 years" %}
+      {% case shop.domain %}
+        {% when 'dev-alivecor-us.myshopify.com' %}
+          {% assign 1year_id = 32992175226983 %}
+          {% assign 1year_selling_plan = 4634509415 %}
+          {% assign 1year_frequency = "12" %}
+          {% capture 1year_label %}
+          1-Year Plan ($99/year)
+          {% endcapture %}
+          {% assign 2year_id = 32992089899111 %}
+          {% assign 2year_selling_plan = 4634607719 %}
+          {% assign 2year_frequency = "24" %}
+          {% capture 2year_label %}
+          2-Year Plan ($179/2 years)
+          {% endcapture %}
+          {% assign 1month_id = 32991987204199 %}
+          {% assign 1month_selling_plan = 4634574951 %}
+          {% assign 1month_frequency = "1" %}
+          {% capture 1month_label %}
+          Monthly Plan ($9.99/month)
+          {% endcapture %}
+        {% when 'store.kardia.com' %}
+          {% assign 1year_id = 32194082472001 %}
+          {% assign 1year_frequency = "12" %}
+          {% capture 1year_label %}
+          1-Year Plan ($99/year)
+          {% endcapture %}
+          {% assign 2year_id = 32283255341121 %}
+          {% assign 2year_frequency = "24" %}
+          {% capture 2year_label %}
+          2-Year Plan ($179/2 years)
+          {% endcapture %}
+          {% assign 1month_id = 32283254751297 %}
+          {% assign 1month_frequency = "1" %}
+          {% capture 1month_label %}
+          Monthly Plan ($9.99/month)
+          {% endcapture %}
+        {% else %}
+      {% endcase %}
+      {% if request.host == 'shop.kardiamobile.ca' %}
+        {% capture 1year_label %}
+        1-Year Plan ($126/year)
+        {% endcapture %}
+        {% capture 2year_label %}
+        2-Year Plan ($228/2 years)
+        {% endcapture %}
+        {% capture 1month_label %}
+        Monthly Plan ($13/month)
+        {% endcapture %}
+        {% assign 1month_price = "$13/month" %}
+        {% assign 1year_price = "$126/year" %}
+        {% assign 2year_price = "$228/2 years" %}
+      {% endif %}
+
+      {% if selectorType == 'radio' %}
+      <fieldset>
+        <legend class="h3">
+          Pick your plan*
+        </legend>
+        <div class="form-radio">
+          <label for="{{ 1month_id }}">
+            <input
+              id="{{ 1month_id }}"
+              name="kardiaCareMembershipLength"
+              type="radio"
+              data-frequency="{{ 1month_frequency }}"
+              data-price="{{ 1month_price }}"
+              data-sellingplan="{{ 1month_selling_plan }}"
+              class="field radio"
+              value="{{ 1month_id }}"
+              tabindex="0"
+              onchange=""
+              checked="checked"
+              required
+              autocomplete="off"
+             />
+             {{ 1month_label }}
+          </label>
+        </div>
+        <div class="form-radio">
+          <label for="{{ 1year_id }}">
+            <input
+              id="{{ 1year_id }}"
+              name="kardiaCareMembershipLength"
+              type="radio"
+              data-frequency="{{ 1year_frequency }}"
+              data-price="{{ 1year_price }}"
+              data-sellingplan="{{ 1year_selling_plan }}"
+              class="field radio"
+              value="{{ 1year_id }}"
+              tabindex="1"
+              onchange=""
+              required
+              autocomplete="off"
+             />
+             {{ 1year_label }}
+          </label>
+        </div>
+        <div class="form-radio">
+          <label for="{{ 2year_id }}">
+            <input
+              id="{{ 2year_id }}"
+              name="kardiaCareMembershipLength"
+              type="radio"
+              data-frequency="{{ 2year_frequency }}"
+              data-price="{{ 2year_price }}"
+              class="field radio"
+              value="{{ 2year_id }}"
+              data-sellingplan="{{ 2year_selling_plan }}"
+              tabindex="2"
+              onchange=""
+              required
+              autocomplete="off"
+             />
+             {{ 2year_label }}
+          </label>
+        </div>
+      </fieldset>
+  {% endif %}
+  {% if selectorType == 'slider' %}
+    <div class="plan-selector-container{% if location == 'upsell' %} two{% else %} three{% endif %}">
+      <div class="plan-selector" data-selected="0">
+        <div class="plan">
+          <input
+            id="{{ 1month_id }}"
+            name="kardiaCareMembershipLength"
+            type="radio"
+            data-frequency="{{ 1month_frequency }}"
+            data-price="{{ 1month_price }}"
+            class="field radio"
+            value="{{ 1month_id }}"
+            tabindex="1"
+            onchange=""
+            checked="true"
+            required
+            autocomplete="off"
+            />
+          <label for="{{ 1month_id }}">
+            {{ 1month_title }}
+          </label>
+        </div>
+        <div class="plan">
+          <input
+            id="{{ 1year_id }}"
+            name="kardiaCareMembershipLength"
+            type="radio"
+            data-frequency="{{ 1year_frequency }}"
+            data-price="{{ 1year_price }}"
+            class="field radio"
+            value="{{ 1year_id }}"
+            tabindex="1"
+            onchange=""
+            required
+            autocomplete="off"
+           />
+          <label for="{{ 1year_id }}">
+            {{ 1year_title }}
+          </label>
+        </div>
+        {% if location != 'upsell' %}
+        <div class="plan">
+          <input
+            id="{{ 2year_id }}"
+            name="kardiaCareMembershipLength"
+            type="radio"
+            data-frequency="{{ 2year_frequency }}"
+            data-price="{{ 2year_price }}"
+            data-sellingplan="{{ 2year_selling_plan }}"
+            class="field radio"
+            value="{{ 2year_id }}"
+            tabindex="2"
+            onchange=""
+            required
+            autocomplete="off"
+           />
+          <label for="{{ 2year_id }}">
+            {{ 2year_title }}
+          </label>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% if location == 'upsell' %}
+      <span id="KardiaCareProductPrice" class="h2Price upsell-price">{{ 1month_price }}</span>
+    {% endif %}
+  {% endif %}
+  </div>
+
+  {% comment %}
+  <!-- removing quantities for now -->
+  <label for="Quantity" class="quantity-selector">{{ 'products.product.quantity' | t }}</label>
+  <input type="number" id="Quantity" name="quantity" value="1" min="1" class="quantity-selector">
+  {% endcomment %}
+
+  <button
+    type="submit"
+    name="add"
+    id="{{product.id}}AddToCart1"
+    class="btn addToCart{% if location == 'upsell' %} ga-tracker{% endif %}"
+    {% if sold_out %}
+      disabled
+    {% endif %}
+    {% if location == 'upsell' %}
+      data-category="KardiaCare Cart Pop Up Upsell - Choice"
+      data-action="Clicked Add to cart"
+      data-label="Cart"
+    {% endif %}
+   >
+    <span id="AddToCartText">
+    {% if sold_out %}
+    {{ 'products.product.sold_out' | t }}
+    {% elsif preorder %}
+    {{ 'products.product.preorder' | t }}
+    {% else %}
+    {{ 'products.product.add_to_cart' | t }}
+    {% endif %}
+    </span>
+  </button>
+  {% if page == 'home' %}
+    <a href="/products/kardiacare" class="view-details">
+      View Details
+    </a>
+  {% endif %}
+</form>

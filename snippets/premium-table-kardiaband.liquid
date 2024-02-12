@@ -1,0 +1,100 @@
+<p>Every purchase of KardiaBand includes our basic service free of charge. Unlock comprehensive control of your heart health with the Premium Protection Plan. Free trial for 30 days<sup>1</sup>.</p>
+<table>
+  <thead>
+    <tr>
+      <td></td>
+      <td class="head">Basic</td>
+      <td class="head bold">Premium Protection Plan</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="feature top-left-round">
+        Take unlimited EKGs. Detect Atrial Fibrillation, Bradycardia, Tachycardia or Normal heart rhythm.
+      </td>
+       <td class="basic">
+        {% include "icon-checkmark.svg" %}
+      </td>
+      <td class="premium top-right-round">
+        {% include "icon-checkmark.svg" %}
+      </td>
+    </tr>
+    <tr>
+      <td class="feature">
+        Store your EKGs on your phone, and email your EKG to your doctor with the press of a button.
+      </td>
+      <td class="basic">
+        {% include "icon-checkmark.svg" %}
+      </td>
+      <td class="premium">
+        {% include "icon-checkmark.svg" %}
+      </td>
+    </tr>
+    <tr>
+      <td class="feature bottom-left-round">
+        Track your weight and blood pressure data for total heart care.
+      </td>
+      <td class="basic">
+        {% include "icon-checkmark.svg" %}
+      </td>
+      <td class="premium bottom-right-round">
+        {% include "icon-checkmark.svg" %}
+      </td>
+    </tr>
+    <tr class="spacer"></tr>
+    {% if shop.currency == 'USD' %}
+      <tr>
+        <td class="feature top-left-round">
+          <span>Device Replacement</span>Enjoy secure access to all of your EKG recordings on any device, accessible anytime, anywhere.
+        </td>
+        <td></td>
+        <td class="premium top-right-round">
+          {% include "icon-checkmark.svg" %}
+        </td>
+      </tr>
+    {% endif %}
+    <tr>
+      <td class="feature {% if shop.currency != 'USD' %}top-left-round{% endif %}">
+        <span>Cloud Storage & Security</span>Enjoy secure access to all of your EKG recordings on any device, accessible anytime, anywhere.
+      </td>
+      <td></td>
+      <td class="premium {% if shop.currency != 'USD' %}top-right-round{% endif %}">
+        {% include "icon-checkmark.svg" %}
+      </td>
+    </tr>
+    {% if shop.currency == 'USD' %}
+      <tr>
+        <td class="feature">
+          <span>Personalized Heart Health Report</span>Receive a mailed report every 30 days with a summary of your EKG and blood pressure data to share with your doctor.
+        </td>
+        <td></td>
+        <td class="premium">
+          {% include "icon-checkmark.svg" %}
+        </td>
+      </tr>
+    {% endif %}
+    <tr>
+      <td class="feature">
+        <span>Medication Tracking</span>Receive reminders to take specific medication at your doctor’s recommended times and track your medication history.
+      </td>
+      <td></td>
+      <td class="premium">
+        {% include "icon-checkmark.svg" %}
+      </td>
+    </tr>
+    <tr>
+      <td class="feature bottom-left-round">
+        <span>SmartRhythm Monitoring</span>Receive a notification to record an EKG when AI detects unexpected relationships between heart rate and activity levels.
+      </td>
+      <td></td>
+      <td class="premium bottom-right-round">
+        {% include "icon-checkmark.svg" %}
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="footnotes">
+  <p>
+    1. Your 30-day free trial begins from the time you create an account with the Kardia App. After 30 days, you'll have the option to purchase Premium for {{ premium_price }} or continue to use Basic.<br><a href="https://www.alivecor.com/premium-protection-plan" target="_blank">Click here for Premium Protection Plan details.</a>
+  </p>
+</div>

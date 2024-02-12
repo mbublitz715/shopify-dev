@@ -1,0 +1,145 @@
+{% assign uk_store = false %}
+{% if shop.domain == 'store.alivecor.co.uk' %}
+  {% assign uk_store = true %}
+{% endif %}
+
+<section class="kc-feature-highlight">
+<section class="feature teal" id="ad-anchor">
+   <div class="flex-content">
+    <div class="text">
+      <span class="mini-title">Feature Highlight</span>
+      <div class="h1">Advanced Determinations</div>
+      <p>With this KardiaCare feature, you can detect a wider range of arrhythmias right at your fingertips. Along with our current determinations—AFib, Bradycardia, Tachycardia, and Normal Sinus Rhythm—Advanced Determinations can detect three additional arrhythmias:</p>
+      <ul>
+        <li>Sinus Rhythm with Premature Ventricular Contractions (PVCs)</li>
+        <li>Sinus Rhythm with Supraventricular Ectopy (SVE)</li>
+        <li>Sinus Rhythm with Wide QRS</li>
+      </ul>
+      <p style="margin: 0;">
+        <a href="https://www.kardia.com/blog/articles/advanced_determinations/"
+          class="ga-tracker teal-underline"
+          target="_blank" 
+        >Learn more</a> about Advanced Determinations on our blog.
+      </p>
+    </div>
+    <div class="table">
+      <table>
+        <thead>
+          <tr>
+            <td></td>
+            <td>Basic</td>
+            <td>KardiaCare</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Normal Sinus Rhythm</td>
+            <td class="basic">
+              {% include "icon-checkmark.svg" %}
+            </td>
+            <td class="premium">
+              {% include "icon-shield.svg" %}
+            </td>
+          </tr>
+          <tr>
+            <td>Atrial Fibrillation</td>
+            <td class="basic">
+              {% include "icon-checkmark.svg" %}
+            </td>
+            <td class="premium">
+              {% include "icon-shield.svg" %}
+            </td>
+          </tr>
+          <tr>
+            <td>Bradycardia</td>
+            <td class="basic">
+              {% include "icon-checkmark.svg" %}
+            </td>
+            <td class="premium">
+              {% include "icon-shield.svg" %}
+            </td>
+          </tr>
+          <tr>
+            <td>Tachycardia</td>
+            <td class="basic">
+              {% include "icon-checkmark.svg" %}
+            </td>
+            <td class="premium">
+              {% include "icon-shield.svg" %}
+            </td>
+          </tr>
+          <tr>
+            <td>Sinus Rhythm with PVCs</td>
+            <td></td>
+            <td class="premium">
+              {% include "icon-shield.svg" %}
+            </td>
+          </tr>
+          <tr>
+            <td>Sinus Rhythm with SVE</td>
+            <td></td>
+            <td class="premium">
+              {% include "icon-shield.svg" %}
+            </td>
+          </tr>
+          <tr>
+            <td>Sinus Rhythm with Wide QRS</td>
+            <td></td>
+            <td class="premium">
+              {% include "icon-shield.svg" %}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% if request.host != 'shop.kardiamobile.ca' %}
+<section class="feature" id="ekg-review-anchor">
+  <div class="flex-content">
+    <div class="text">
+      <span class="mini-title">Feature Highlight</span>
+      {% if uk_store %}
+      <div class="h1">Clinician ECG Review</div>
+      <p>Get your complimentary ECG reviews right in the Kardia app. Every 90 days select an ECG to be reviewed by a cardiac physiologist without leaving your home. Four reviews annually are included with your membership.</p>
+      {% else %}
+      <div class="h1">Board-Certified Cardiologist EKG Review</div>
+      <p>Get your complimentary EKG reviews right in the Kardia app. Every 90 days select an EKG to be reviewed by a board-certified cardiologist without leaving your home. Four reviews annually are included with your membership.</p>
+      {% endif %}
+    </div>
+    <div class="image">
+      <img src="https://www.kardia.com/img/kardiacare-overread.png" alt="image of 2 phones with overread reports">
+    </div>
+  </div>
+</section>
+{% endif %}
+<section class="feature" id="summary-report-anchor">
+  <div class="flex-content">
+    <div class="text">
+      <span class="mini-title">Feature Highlight</span>
+      <div class="h1">Heart Health Summary Report</div>
+      {% if uk_store %}
+      <p>Get a summary of your ECG and blood pressure data over a custom date range up to 30 days. Use this report to track your heart health over time, or share it with your doctor at your next appointment.</p>
+      <p>Your summary report includes an overview of:</p>
+      <ul style="margin-bottom: 12px;">
+        <li>ECG</li>
+        <li>Blood Pressure</li>
+        <li>Weight</li>
+      </ul>
+      {% else %}
+      <p>Get a summary of your EKG and blood pressure data over a custom date range up to 30 days. Use this report to track your heart health over time, or share it with your doctor at your next appointment.</p>
+      <p>Your summary report includes an overview of:</p>
+      <ul style="margin-bottom: 12px;">
+        <li>EKG</li>
+        <li>Blood Pressure</li>
+        <li>Weight</li>
+      </ul>
+      {% endif %}
+      <p>Blood pressure and weight are manually entered.</p>
+    </div>
+    <div class="image">
+      <img src="https://www.kardia.com/img/kardiacare-summary.png" alt="image of phone with summary report">
+    </div>
+  </div>
+</section>
+</section>

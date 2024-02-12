@@ -1,0 +1,156 @@
+{% assign product_title = product.title %}
+{% if product.handle == 'kardiacare-subscription-km' %}
+  {% assign product_title = 'KardiaMobile' %}
+{% endif %}
+<p>
+  {% if product.handle != 'omron-evolv' %}
+  {{ 'compatibility.intro_mobile' | t: product_title: product_title }}
+{% comment %}new Date().getTime(){% endcomment %}
+For a list of previously compatible devices please see <a href="https://alivecor.zendesk.com/hc/en-us/articles/115015935767" target="_blank">this article</a>.
+{% endif %}
+{% assign updated_date = '1626300000' | date: format: 'month_day_year'  %}
+<br/><span class="italic">({{ 'compatibility.last_updated_on' | t: date: updated_date}})</span>
+</p>
+<div class="kardiamobile{% if product.handle == 'kardiamobile6l' %} kardiamobile6l{% endif %}">
+<div class="content underline">
+  <div class="brand">
+    {% include 'icon-apple.svg' %}
+    <h3>iPhone</h3>
+  </div>
+  <ul class="chart iphone">
+    <li><span class="regular">iPhone 12</span> (iOS 14.6)</li>
+    <li><span class="regular">iPhone 12 Pro</span> (iOS 14.6)</li>
+    <li><span class="regular">iPhone 12 Pro Max</span> (iOS 14.6)</li>
+    <li><span class="regular">iPhone 12 mini</span> (iOS 14.6)</li>
+    <li><span class="regular">iPhone 11</span> (iOS 14.6)</li>
+    <li><span class="regular">iPhone 11 Pro</span> (iOS 14.6)</li>
+    <li><span class="regular">iPhone 11 Pro Max</span> (iOS 14.6)</li>
+    <li><span class="regular">iPhone XR</span> (iOS 14.6)</li>
+    <li><span class="regular">iPhone XS</span> (iOS 14.6)</li>
+    <li><span class="regular">iPhone XS Max</span> (iOS 14.6)</li>
+    <li><span class="regular">iPhone X</span> (iOS 14.6)</li>
+    <li><span class="regular">iPhone 8</span> (iOS 14.6)</li>
+    <li><span class="regular">iPhone 8 Plus</span> (iOS 14.6)</li>
+    <li><span class="regular">iPhone 7</span> (iOS 14.6)</li>
+    <li><span class="regular">iPhone 7 Plus</span> (iOS 14.6)</li>
+    <li><span class="regular">iPhone 6s</span> (iOS 14.6)</li>
+    <li><span class="regular">iPhone 6s Plus</span> (iOS 14.6)</li>
+    <li><span class="regular">iPhone SE</span> (iOS 14.6)</li>
+    <li><span class="regular">iPhone SE (2nd Gen)</span> (iOS 14.6)</li>
+    <li><span class="regular">iPhone 6</span> (iOS 12.4)</li>
+    <li><span class="regular">iPhone 6 Plus</span> (iOS 12.4)</li>
+    <li><span class="regular">iPhone 5s</span> (iOS 12.4)</li>
+    {% if product.handle != 'kardiamobile6l' %}
+    <li><span class="regular">iPhone 5c</span> (iOS 10.3.3)</li>
+    <li><span class="regular">iPhone 5</span> (iOS 10.3.3)</li>
+    {% endif %}
+    <li><span class="regular">iPod Touch (7th Gen)</span> (iOS 14.6)</li>
+  </ul>
+</div>
+<div class="content underline">
+  <div class="brand">
+    {% include 'icon-apple.svg' %}
+    <h3>iPad</h3>
+  </div>
+  <ul class="chart ipad">
+    <li><span class="regular">iPad 2019 (7th Gen)</span> (iOS 14.6)</li>
+    <li><span class="regular">iPad Pro 12" (2nd Gen)</span> (iOS 14.6)</li>
+    <li><span class="regular">iPad Pro 10.5" (2nd Gen)</span> (iOS 14.6)</li>
+    <li><span class="regular">iPad Pro 12"</span> (iOS 14.6)</li>
+    <li><span class="regular">iPad Pro 9"</span> (iOS 14.6)</li>
+    <li><span class="regular">iPad 9.7" (2017)</span> (iOS 14.6)</li>
+    <li><span class="regular">iPad Mini 5</span> (iOS 14.6)</li>
+    <li><span class="regular">iPad Mini 4</span> (iOS 14.6)</li>
+    <li><span class="regular">iPad Mini 3</span> (iOS 12.4)</li>
+    <li><span class="regular">iPad Mini 2</span> (iOS 12.4)</li>
+    <li><span class="regular">iPad Air (3rd Gen)</span> (iOS 14.6)</li>
+    <li><span class="regular">iPad Air 2</span> (iOS 14.6)</li>
+    <li><span class="regular">iPad Air (1st Gen)</span> (iOS 12.4)</li>
+  </ul>
+</div>
+<div class="content">
+  <div class="brand">
+    {% include 'icon-android.svg' %}
+    <h3>{{ 'compatibility.android' | t }}</h3>
+  </div>
+  <ul class="chart android">
+    <li><span class="regular">Google Pixel 4</span> (Android 11.0.0)</li>
+    <li><span class="regular">Google Pixel 4 XL</span> (Android 11.0.0)</li>
+    <li><span class="regular">Google Pixel 3a</span> (Android 11.0.0)</li>
+    <li><span class="regular">Google Pixel 3a XL</span> (Android 11.0.0)</li>
+    <li><span class="regular">Google Pixel 3</span> (Android 11.0.0)</li>
+    <li><span class="regular">Google Pixel 3 XL</span> (Android 11.0.0)</li>
+    <li><span class="regular">Google Pixel 2</span> (Android 11.0.0)</li>
+    <li><span class="regular">Google Pixel 2 XL</span> (Android 11.0.0)</li>
+    <li><span class="regular">Google Pixel</span> (Android 10.0.0)</li>
+    <li><span class="regular">Google Pixel XL</span> (Android 10.0.0)</li>
+    <li><span class="regular">Samsung Galaxy S10</span> (Android 9.0.0)</li>
+    <li><span class="regular">Samsung Galaxy S10+</span> (Android 9.0.0)</li>
+    <li><span class="regular">Samsung Galaxy S9</span> (Android 8.0.0)</li>
+    <li><span class="regular">Samsung Galaxy S9+</span> (Android 9.0.0)</li>
+    <li><span class="regular">Samsung Galaxy S8</span> (Android 7.0.0)</li>
+    <li><span class="regular">Samsung Galaxy S8+</span> (Android 8.0.0)</li>
+    <li><span class="regular">Samsung Galaxy S7</span> (Android 8.0.0)</li>
+    <li><span class="regular">Samsung Galaxy S6</span> (Android 7.0.0)</li>
+    <li><span class="regular">Samsung Galaxy S5</span> (Android 6.0.1)</li>
+    <li><span class="regular">Samsung Note10</span> (Android 10.0.0)</li>
+    <li><span class="regular">Samsung Note10+</span> (Android 10.0.0)</li>
+    <li><span class="regular">Samsung Note9</span> (Android 8.1.0)</li>
+    <li><span class="regular">Samsung Note8</span> (Android 8.0.0)</li>
+    <li><span class="regular">Samsung Note5</span> (Android 7.0.0)</li>
+    <li><span class="regular">Samsung Tab A (2016)</span> (Android 8.1.0)</li>
+    <li><span class="regular">Samsung A10e</span> (Android 10.0.0)</li>
+    <li><span class="regular">Huawei Mate 10</span> (Android 8.0.0)</li>
+    <li><span class="regular">LG Nexus 5</span> (Android 6.0.1)</li>
+    <li><span class="regular">Motorola Moto G9 Play</span> (Android 10.0)</li>
+    <li><span class="regular">Motorola Moto G8 Plus</span> (Android 9.0.0)</li>
+    <li><span class="regular">Motorola Moto G5 Plus</span> (Android 8.1.0)</li>
+    <li><span class="regular">Motorola Moto G Gen 2</span> (Android 6.0)</li>
+    <li><span class="regular">TT800Q 4G LTE</span> (Android 7.1)</li>
+    {% if product.handle == 'kardiamobile6l' %}
+    <li><span class="regular">OnePlus Nord N100</span> (Android 10.0)</li>
+    {% endif %}
+  </ul>
+</div>
+</div>
+
+<div class="downloads">
+  {% comment %}
+    capture itunes and play urls for passing to the translation
+  {% endcomment %}
+  {% capture itunes_url %}
+    <a href="https://itunes.apple.com/app/aliveecg/id579769143">
+      {{ 'compatibility.app_store' | t }}
+    </a>
+  {% endcapture %}
+
+  {% capture play_url %}
+    <a href="https://play.google.com/store/apps/details?id=com.alivecor.aliveecg">
+      {{ 'compatibility.google_play' | t }}
+    </a>
+  {% endcapture %}
+  <div class="content">
+  <h3>{{ 'compatibility.kardia_app' | t }}</h3>
+  <p>
+    {% if product.handle != 'omron-evolv' %}
+    {{ 'compatibility.use_of_kardia_mobile_requires_html' | t: itunes_url: itunes_url, play_url: play_url }}
+    {% else %}
+    Use OMRON Evolv with the companion app, Kardia, which is available for download in the {{ itunes_url }} and {{ play_url }}.
+    {% endif %}
+  </p>
+  <div class="store-links">
+    <a class="itunes-badge" target="_blank" href="https://itunes.apple.com/app/aliveecg/id579769143"><img src="{{ 'apple-icon.png' | asset_url }}" alt="link to AppStore"></a>
+    <a class="android-badge" target="_blank" href="https://play.google.com/store/apps/details?id=com.alivecor.aliveecg"><img src="{{ 'google-icon.png' | asset_url }}" alt="Android app on Google Play"></a>
+  </div>
+  {% if shop.locale == 'en' and product.handle != 'omron-evolv' %}
+    <p class="omron-link">
+      <a href="https://omronhealthcare.com/kardiamobile/" target="_blank">
+        {{ 'compatibility.omron_compatibility' | t }}
+      </a>
+    </p>
+  {% endif %}
+  </div>
+</div>
+
+
+  

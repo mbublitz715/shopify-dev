@@ -1,0 +1,346 @@
+$(document).ready(function() {
+  var device;
+
+  device = getCompatibleDevice(getUserAgent(), getDevices());
+
+  if (device) {
+    $('#deviceNameCompat').html(device.name + ' <span class="link"><a href="https://store.kardia.com/products/kardiamobile/#compatibility">Compatible</a></span>');
+    $('#deviceNameCompat').show();
+  }
+});
+
+function getUserAgent() {
+  var navigator = window.navigator;
+  if (!navigator) {
+    return '';
+  }
+  if (!navigator.userAgent) {
+    return '';
+  }
+  return navigator.userAgent.toLowerCase();
+}
+
+function getCompatibleDevice(agent, devices) {
+  for (var index = 0; index < devices.length; index++) {
+    var device = devices[index];
+    var model = getModel(device.models, agent);
+    if (model) {
+      if (model === 'iPhone') {
+        var os = window.navigator.userAgent.match(/ip[honead]{2,4}(?:.*os\s([\w]+)\slike\smac|;\sopera)/i)[1];
+        os = os.replace(/_/g, '.');
+        var osNum = parseFloat(os);
+        if (osNum >= 10.3) {
+          return {
+            name: device.name,
+            model: model,
+            vendor: device.vendor
+          }
+        }
+      } else {
+        return {
+          name: device.name,
+          model: model,
+          vendor: device.vendor
+        }
+      }
+    }
+  }
+}
+
+function getModel(models, agent) {
+  for (var index = 0; index < models.length; index++) {
+    var model = models[index];
+    if (agent.indexOf(model.toLowerCase()) !== -1) {
+      return model;
+    }
+  }
+}
+
+function getDevices() {
+  return [
+    {
+      "vendor": "Apple",
+      "name": "iPhone",
+      "models": [
+        "iPhone"
+      ]
+    },
+    {
+      "vendor": "Motorola",
+      "name": "Moto G (2nd Gen)",
+      "models": [
+        "XT1064",
+        "XT1068",
+        "XT1069",
+        "XT1063"
+      ]
+    },
+    {
+      "name": "Huawei",
+      "name": "Mate 10",
+      "models": [
+        "ALP-L29",
+        "BLA-AL00",
+        "ALP-L09"
+      ]
+    },
+    {
+      "vendor": "LG",
+      "name": "Nexus 5",
+      "models": [
+        "Nexus 5",
+        "Nexus5"
+      ]
+    },
+    {
+      "vendor": "Google",
+      "name": "Google Pixel XL",
+      "models": [
+        "Pixel XL"
+      ]
+    },
+    {
+      "vendor": "Google",
+      "name": "Google Pixel",
+      "models": [
+        "Pixel"
+      ]
+    },
+    {
+      "vendor": "Samsung",
+      "name": "Galaxy S5",
+      "models": [
+        "SM-902L",
+        "SM-G900",
+        "SM-G900A",
+        "SM-G900AZ",
+        "SM-G900F",
+        "SM-G900FD",
+        "SM-G900H",
+        "SM-G900I",
+        "SM-G900M",
+        "SM-G900P",
+        "SM-G900R4",
+        "SM-G900R7",
+        "SM-G900T",
+        "SM-G900T1",
+        "SM-G900T3",
+        "SM-G900V",
+        "SM-G900V 4G",
+        "SM-G900W8",
+        "SM-G901F",
+        "SM-G906L",
+        "SM-S903VL"
+      ]
+    },
+    {
+      "vendor": "Samsung",
+      "name": "Galaxy S6",
+      "models": [
+        "SC-05G",
+        "SM-G9200",
+        "SM-G9209",
+        "SM-G920A",
+        "SM-G920AZ",
+        "SM-G920F",
+        "SM-G920I",
+        "SM-G920L",
+        "SM-G920P",
+        "SM-G920R4",
+        "SM-G920R4 USCC",
+        "SM-G920R7",
+        "SM-G920T",
+        "SM-G920T1",
+        "SM-G920V",
+        "SM-G920W8",
+        "SM-S907VL"
+      ]
+    },
+    {
+      "vendor": "Samsung",
+      "name": "Galaxy S7",
+      "models": [
+        "SM-G9300",
+        "SM-G930A",
+        "SM-G930AZ",
+        "SM-G930F",
+        "SM-G930P",
+        "SM-G930R4",
+        "SM-G930R4 USCC",
+        "SM-G930R6",
+        "SM-G930S",
+        "SM-G930T",
+        "SM-G930T1",
+        "SM-G930U",
+        "SM-G930V",
+        "SM-G930VC",
+        "SM-G930VL",
+        "SM-G930W8",
+        "SM-G930W8-parrot"
+      ]
+    },
+    {
+      "vendor": "Samsung",
+      "name": "Galaxy S8",
+      "models": [
+        "SCV36",
+        "SM-G950",
+        "SM-G9500",
+        "SM-G950F",
+        "SM-G950N",
+        "SM-G950U",
+        "SM-G950U1",
+        "SM-G950W",
+        "SM-G950FD",
+        "SM-G950A",
+        "SM-G950P",
+        "SM-G950T",
+        "SM-G950V",
+        "SM-G950R4",
+        "SM-G950S",
+        "SM-G950K",
+        "SM-G950L"
+      ]
+    },
+    {
+      "vendor": "Samsung",
+      "name": "Galaxy S8+",
+      "models": [
+        "SM-G955F",
+        "SM-G955FD",
+        "SM-G955W",
+        "SM-G955A",
+        "SM-G955P",
+        "SM-G955T",
+        "SM-G955V",
+        "SM-G955R4",
+        "SM-G955U",
+        "SM-G955S",
+        "SM-G955K",
+        "SM-G955L",
+        "SM-G9550"
+      ]
+    },
+    {
+      "vendor": "Samsung",
+      "name": "Galaxy S9",
+      "models": [
+        "SM-G960U",
+        "SM-G960F",
+        "SM-G960U1",
+        "SM-G960W",
+        "SM-G9600"
+      ]
+    },
+    {
+      "vendor": "Samsung",
+      "name": "Galaxy S9+",
+      "models": [
+        "SM-G965F",
+        "SM-G965F/DS",
+        "SM-G965U",
+        "SM-G965W",
+        "SM-G9650"
+      ]
+    },
+    {
+      "vendor": "Samsung",
+      "name": "Galaxy S10",
+      "models": [
+        "SM-G977B",
+        "SM-G977U",
+        "SM-G977N",
+        "SM-G9770",
+        "SM-G973F/DS",
+        "SM-G973U",
+        "SM-G973W",
+        "SM-G9730"
+      ]
+    },
+    {
+      "vendor": "Samsung",
+      "name": "Galaxy S10+",
+      "models": [
+        "SM-G975F/DS",
+        "SM-G975U",
+        "SM-G975W"
+      ]
+    },
+    {
+      "vendor": "Samsung",
+      "name": "Galaxy Note5",
+      "models": [
+        "SM-N9200",
+        "SM-N9208",
+        "SM-N920A",
+        "SM-N920C",
+        "SM-N920G",
+        "SM-N920I",
+        "SM-N920K",
+        "SM-N920L",
+        "SM-N920P",
+        "SM-N920R4",
+        "SM-N920S",
+        "SM-N920T",
+        "SM-N920V",
+        "SM-N920V 4G",
+        "SM-N920W8"
+      ]
+    },
+    {
+      "vendor": "Samsung",
+      "name": "Galaxy Note8",
+      "models": [
+        "SM-N950F",
+        "SM-N950U1",
+        "SM-N950U",
+        "SM-N950W",
+        "SM-N9500",
+        "SM-N950N"
+      ]
+    },
+    {
+      "vendor": "Samsung",
+      "name": "Galaxy Note9",
+      "models": [
+        "SM-N960U",
+        "SM-N960U1",
+        "SM-N960F",
+        "SM-N9600",
+        "SM-N960W",
+        "SM-N960N"
+      ]
+    },
+    {
+      "vendor": "Samsung",
+      "name": "Note10",
+      "models": [
+        "SM-N970F",
+        "SM-N970F/DS",
+        "SM-N970U",
+        "SM-N970U1",
+        "SM-N970W",
+        "SM-N9700/DS",
+        "SM-N970N",
+        "SM-N971U",
+        "SM-N971N"
+      ]
+    },
+    {
+      "vendor": "Samsung",
+      "name": "Note10+",
+      "models": [
+        "SM-N975F",
+        "SM-N975F/DS",
+        "SM-N975U",
+        "SM-N975U1",
+        "SM-N975W",
+        "SM-N9750/DS",
+        "SM-N975N",
+        "SM-N976F",
+        "SM-N976U",
+        "SM-N976N"
+      ]
+    }
+  ]
+}

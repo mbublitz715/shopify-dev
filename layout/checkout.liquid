@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}" dir="{{ direction }}" class="{{ checkout_html_classes }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
+    <meta name="referrer" content="origin">
+
+    {% if settings.favicon_enable %}
+    <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
+    {% endif %}
+
+    <title>{{ page_title }}</title>
+
+    {{ content_for_header }}
+
+    <script>
+      dataLayer = [];
+    </script>
+
+    {% include 'gtm-head' %}
+    {% include 'omniconvert' %}
+
+    {{ checkout_stylesheets }}
+    {{ checkout_scripts }}
+    {{ 'thank-you.scss.css' | asset_url | stylesheet_tag }}
+    <style>
+      @media (min-width: 1000px) {
+      .order-summary__section--discount {
+        position: absolute;
+        bottom: 50px;
+        border-top: none;
+        width: 100%;
+      }
+      .promoShowLink {
+        cursor: pointer;
+        position: absolute;
+        bottom: 80px;
+        font-weight: bold;
+      }
+    }
+    .alt-payment-list-container {
+      text-align: center;
+    }
+    .alternative-payment-separator {
+      font-size: 16px;
+      color: #333;
+    }
+    </style>
+  </head>
+  <body>
+    {% include 'gtm-body' %}
+    {{ skip_to_content_link }}
+    <div class="banner" data-header>
+      <div class="wrap">
+        {{ content_for_logo }}
+      </div>
+    </div>
+
+    {{ order_summary_toggle }}
+
+    <div class="content" data-content>
+      <div class="wrap">
+        <div class="main" role="main">
+          <div class="main__header">
+            {{ content_for_logo }}
+            {{ breadcrumb }}
+            {{ alternative_payment_methods }}
+          </div>
+          <div class="main__content">
+            {{ content_for_layout }}
+          </div>
+          <div class="main__footer">
+            {{ content_for_footer }}
+          </div>
+        </div>
+        <div class="sidebar" role="complementary">
+          <div class="sidebar__header">
+            {{ content_for_logo }}
+          </div>
+          <div class="sidebar__content">
+            {{ content_for_order_summary }}
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    {% include 'thank-you-kardiacare' %}
+    {% include 'thank-you-kardia-device' %}
+
+    {{ tracking_code }}
+    <script>
+      // append polyfill
+      // Source: https://github.com/jserz/js_piece/blob/master/DOM/ParentNode/append()/append().md
+      (function (arr) {
+        arr.forEach(function (item) {
+          if (item.hasOwnProperty('append')) {
+            return;
+          }
+          Object.defineProperty(item, 'append', {
+            configurable: true,
+            enumerable: true,
+            writable: true,
+            value: function append() {
+              var argArr = Array.prototype.slice.call(arguments),
+                docFrag = document.createDocumentFragment();
+              argArr.forEach(function (argItem) {
+                var isNode = argItem instanceof Node;
+                docFrag.appendChild(isNode ? argItem : document.createTextNode(String(argItem)));
+              });
+              this.appendChild(docFrag);
+            }
+          });
+        });
+      })([Element.prototype, Document.prototype, DocumentFragment.prototype]);
+
+      if (window.innerWidth > 999) {
+        var discountField = document.getElementsByClassName('order-summary__section--discount')[0];
+        var discountSection = document.getElementsByClassName('order-summary__sections')[0];
+        if (discountField && discountSection) {
+          var link = document.createElement('a');
+          link.className = 'promoShowLink';
+          link.onclick = function() {
+            discountField.style.visibility = 'visible';
+            link.style.display = 'none';
+          }
+          link.append('Promotional Code');
+          discountSection.append(link);
+          discountSection.append(discountField);
+          discountField.style.visibility = 'hidden';
+        }
+      }
+
+      {% for discount in checkout.discounts %}
+        {% assign discountcode = discount.code %}
+      {% endfor %}
+      var productsArray = [],
+          kardiaCarePurchase = false,
+          kardiaDevicePurchase = false;
+
+      {% for item in checkout.line_items %}
+        productsArray.push({
+          name: '{{ item.title }}',
+          productId: '{{ item.product_id }}',
+          quantity: '{{ item.quantity }}'
+        });
+        {% if item.title == 'KardiaCare Membership - 1 year' or item.title == 'KardiaCare Membership - 2 year' %}
+          kardiaCarePurchase = true;
+        {% endif %}
+        {% if item.title == 'KardiaMobile' or item.title == 'KardiaMobile 6L' %}
+          kardiaDevicePurchase = true;
+        {% endif %}
+      {% endfor %}
+      dataLayer.push({
+        orderId: '{{ checkout.order_number }}',
+        revenue: '{{ checkout.subtotal_price | money_without_currency }}',
+        products: productsArray,
+        discountCode: '{{ discountcode }}'
+      });
+      var kardiaCareCheckoutMessage = '<h2><span style=\"color: #f15757;font-weight: bold;\">IMPORTANT:</span> You will need to activate your KardiaCare membership to begin using it. Check your inbox for an activation email with instructions on how to activate your membership. Your term will begin once you activate or 30 days after purchase.</h2>';
+      if (kardiaCarePurchase && !kardiaDevicePurchase) {
+        if (Shopify.Checkout.OrderStatus) {
+          Shopify.Checkout.OrderStatus.addContentBox(kardiaCareCheckoutMessage);
+        }
+        if (Shopify.Checkout.page === 'thank_you') {
+          setTimeout(function() {
+            openKardiaCareOnlyModal();
+          }, 1500);
+        }
+      }
+      if (kardiaCarePurchase && kardiaDevicePurchase) {
+        if (Shopify.Checkout.OrderStatus) {
+          Shopify.Checkout.OrderStatus.addContentBox(kardiaCareCheckoutMessage);
+        }
+        if (Shopify.Checkout.page === 'thank_you') {
+          setTimeout(function() {
+            openKardiaCareDeviceModal();
+          }, 1500);
+        }
+      }
+      function openKardiaCareOnlyModal() {
+        var modal = document.querySelector('.pop-up.kardiacare-thank-you');
+        modal.classList.add('open');
+        document.querySelectorAll('.kardiacare-thank-you-close').forEach(function(item) {
+          item.addEventListener('click', function() {
+            modal.classList.remove('open');
+          });
+        });
+      }
+      function openKardiaCareDeviceModal() {
+        var modal = document.querySelector('.pop-up.kardia-device-thank-you');
+        modal.classList.add('open');
+        document.querySelectorAll('.kardia-device-thank-you-close').forEach(function(item) {
+          item.addEventListener('click', function() {
+            modal.classList.remove('open');
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

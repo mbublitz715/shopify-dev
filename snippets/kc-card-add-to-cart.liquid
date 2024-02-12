@@ -1,0 +1,100 @@
+<div class="form">
+  <form action="/cart/add" method="post" enctype="multipart/form-data" id="kardiaCareBundleAddToCartForm" class="AddToCartForm form-vertical" data-productid="{{product.id}}" onsubmit="addToCartKardiaCareDeviceBundle(event, this, '{{product.handle}}')">
+    {% capture 1year_title %}
+        1-Year Plan
+      {% endcapture %}
+      {% capture 2year_title %}
+        2-Year Plan
+      {% endcapture %}
+      {% assign 1year_price = "$99/year" %}
+      {% assign 2year_price = "$179/2 years" %}
+      {% case shop.domain %}
+        {% when 'dev-alivecor-us.myshopify.com' %}
+          {% assign 1year_id = 32992175226983 %}
+          {% assign 1year_frequency = "12" %}
+          {% assign 1year_price_number = "99" %}
+          {% assign 1year_selling_plan = 4634509415 %}
+          {% assign 1year_price_disclaimer = "$99 after your first year" %}
+          {% capture 1year_label %}
+          1-Year Plan ($99/year)
+          {% endcapture %}
+          {% assign kardiamobilecard_id = "39379428868199 " %}
+        {% assign bundle_sale_amount = "0" %}
+        {% when 'store.kardia.com' %}
+          {% assign 1year_id = 32194082472001 %}
+          {% assign 1year_frequency = "12" %}
+          {% assign 1year_price_number = "99" %}
+          {% assign 1year_price_disclaimer = "$99 after your first year" %}
+          {% capture 1year_label %}
+          1-Year Plan ($99/yr)
+          {% endcapture %}
+          {% assign kardiamobile_id = "20036084615" %}
+          {% assign kardiamobile6l_id = "28007532101697" %}
+          {% assign kardiamobilecard_id = "" %}          
+        {% assign bundle_sale_amount = "0" %}
+        {% else %}
+      {% endcase %}
+    <div class="visually-hidden">
+      <fieldset>
+        <div class="form-radio">
+          <label for="{{ 1year_id }}">
+            <input
+              id="{{ 1year_id }}"
+              name="kardiaCareMembershipLength"
+              type="radio"
+              data-frequency="{{ 1year_frequency }}"
+              data-price="{{ 1year_price }}"
+              data-sellingplan="{{ 1year_selling_plan }}"
+              data-price-number="{{ 1year_price_number }}"
+              data-price-disclaimer="{{ 1year_price_disclaimer }}"
+              data-device-price="0"
+              data-price-display-id="kc-card-price"
+              class="field radio"
+              value="{{ 1year_id }}"
+              tabindex="1"
+              onchange=""
+              required
+              checked="checked"
+              autocomplete="off"
+             />
+             {{ 1year_label }}
+          </label>
+        </div>
+      </fieldset>
+    </div>
+    <div class="flex-items-bundle">
+      {% if pageName == 'product' %}
+      <div class="bundle-price-display">
+        <span id="ProductPrice" class="h2Price noFloat">
+          $149.00
+        </span>
+      </div>
+      {% endif %}
+      <button
+        type="submit"
+        name="add"
+        id="{{product.id}}AddToCart1"
+        class="btn addToCart"
+        {% if sold_out %}
+          disabled
+        {% endif %}
+       >
+        <span id="AddToCartText">
+        {% if sold_out %}
+        {{ 'products.product.sold_out' | t }}
+        {% elsif preorder %}
+        {{ 'products.product.preorder' | t }}
+        {% else %}
+        {{ 'products.product.add_to_cart' | t }}
+        {% endif %}
+        </span>
+      </button>
+      {% if pageName == 'home' %}
+      <a href="{{ product.url }}" class="view-details">
+        View Details
+      </a>
+      {% endif %}
+    </div>
+    <div style="clear: both;"></div>
+  </form>
+</div>

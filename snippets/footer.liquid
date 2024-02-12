@@ -1,0 +1,247 @@
+{% assign baseUrl = 'https://www.kardia.com' %}
+{% if shop.domain contains '.co.uk' %}
+  {% assign baseUrl = 'https://www.alivecor.co.uk' %}
+{% endif %}
+<footer>
+  <section class="footer">
+    <div class="newsletter-signup">
+      <form action="https://alivecor.us5.list-manage.com/subscribe/post-json?u=a596beb547be99ec121388a51&amp;id=550f8baa8b&amp;c=?" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate newsletter-form" novalidate>
+        <div class="h2">
+          Sign up to receive the <span>latest AliveCor news.</span>
+        </div>
+        <div id="mc_embed_signup_scroll" class="teal input-group">
+          <div class="mc-field-group">
+            <label for="mce-EMAIL" class="visuallyhidden">Email Address </label>
+            <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Your email address">
+          </div>
+          <div id="mce-responses" class="clear">
+            <div class="response" id="mce-error-response" style="display:none"></div>
+            <div class="response" id="mce-success-response" style="display:none"></div>
+          </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+          <div style="position: absolute; left: -5000px;" aria-hidden="true"><label for="mailchimpBot">b_a596beb547be99ec121388a51_550f8baa8b</label><input id="mailchimpBot" type="text" name="b_a596beb547be99ec121388a51_550f8baa8b" tabindex="-1" value=""></div>
+          <div class="input-group-btn clear">
+            <input
+              type="submit"
+              value="Join"
+              name="subscribe"
+              id="mc-embedded-subscribe"
+              class="btn ga-tracker"
+              data-category="Button"
+              data-action="Subscribe"
+              data-label="Newsletter">
+          </div>
+        </div>
+        <div class="thankyou">
+          Thanks! You have been added to the mailing list.
+        </div>
+        <div class="not-valid bad-email">
+          {% include 'icon-alert.svg' %}Please enter a valid email address
+        </div>
+        <div class="not-valid error"></div>
+      </form>
+      {% if shop.domain == 'store.alivecor.co.uk' %}
+        <div class="aa-logo">
+          <p>Proud to support</p>
+          {{ 'arrhythmia-alliance.png' | asset_url | img_tag }}
+        </div>
+      {% endif %}
+    </div>
+    <div class="footer-nav">
+      <ul>
+        <li>
+          <div class="h6">Shop</div>
+        </li>
+        <li>
+          <a href="http://shop.alivecor.com/kardiamobile-card">
+            KardiaMobile Card
+          </a>
+        </li>
+        <li>
+          <a href="http://shop.alivecor.com/kardiamobile">
+            KardiaMobile
+          </a>
+        </li>
+        <li>
+          <a href="http://shop.alivecor.com/kardiamobile6l">
+            KardiaMobile 6L
+          </a>
+        </li>
+        <li>
+          <a href="http://shop.alivecor.com/kardiacare">
+            KardiaCare
+          </a>
+        </li>
+        <li>
+          <a href="https://alivecor.zendesk.com/hc/articles/1500000449521">
+            Compatibility
+          </a>
+        </li>
+        {% if shop.domain == 'store.kardia.com' %}
+        <li>
+          <a href="{{ baseUrl }}/shipping">
+            Shipping
+          </a>
+        </li>
+        {% endif %}
+        <li>
+          <a href="{{ baseUrl }}/warranty">
+            Warranty
+          </a>
+        </li>
+        <li>
+          <a href="{{ baseUrl }}/international">
+            International
+          </a>
+        </li>
+        <li>
+          <a href="{{ baseUrl }}/resellers">
+            Resellers
+          </a>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <div class="h6">
+            Help
+          </div>
+        </li>
+        <li>
+          <a href="https://alivecor.zendesk.com/hc">
+            Support
+          </a>
+        </li>
+        <li>
+          <a href="https://alivecor.zendesk.com/hc/articles/1500000462022">
+            User Manual
+          </a>
+        </li>
+        <li>
+          <a href="{{ baseUrl }}/tos">
+            Terms of Service
+          </a>
+        </li>
+        <li>
+          <a href="{{ baseUrl }}/privacy">
+            Privacy Policy
+          </a>
+        </li>
+        {% if shop.domain == 'store.kardia.com' %}
+        <li>
+          <a href="{{ baseUrl }}/telehealth-informed-consent">
+            Telehealth Informed Consent
+          </a>
+        </li>
+        <li>
+          <a href="{{ baseUrl }}/accessibility-statement">
+            Accessibility Statement
+          </a>
+        </li>
+        <li>
+          <a href="{{ baseUrl }}/security">
+            Security
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+      <ul>
+        <li>
+          <div class="h6">
+            About AliveCor
+          </div>
+        </li>
+        <li>
+          <a href="{{ baseUrl }}/mission">
+            Our Mission
+          </a>
+        </li>
+        <li>
+          <a href="{{ baseUrl }}/careers">
+            Careers
+          </a>
+        </li>
+        <li>
+          <a href="{{ baseUrl }}/blog">
+            Blog
+          </a>
+        </li>
+        <li>
+          <a href="{{ baseUrl }}/press">
+            Press Releases
+          </a>
+        </li>
+        <li>
+          <a href="{{ baseUrl }}/research">
+            Clinical Research
+          </a>
+        </li>
+        <li>
+          <a href="{{ baseUrl }}/leadership-team">
+            Leadership Team
+          </a>
+        </li>
+      </ul>
+    </div>
+    <ul class="social-links">
+      <li>
+        <a class="followus-facebook" href="https://www.facebook.com/AliveCor/" target="_blank" rel="noopener" aria-label="facebook">
+          {% include 'icon-facebook.svg' %}
+        </a>
+      </li>
+      <li>
+        <a class="followus-instagram" href="https://www.instagram.com/alivecor_inc/" target="_blank" rel="noopener" aria-label="instagram">
+          {% include 'icon-instagram.svg' %}
+        </a>
+      </li>
+      <li>
+        <a class="followus-twitter" href="https://www.twitter.com/alivecor" target="_blank" rel="noopener" aria-label="twitter">
+          {% include 'icon-twitter.svg' %}
+        </a>
+      </li>
+      <li>
+        <a class="followus-youtube" href="https://www.youtube.com/user/alivecor" target="_blank" rel="noopener" aria-label="youtube">
+          {% include 'icon-youtube.svg' %}
+        </a>
+      </li>
+      <li>
+        <a class="followus-linkedin"
+          href="http://www.linkedin.com/company/alivecor/" target="_blank" rel="noopener" aria-label="linkedin">
+          {% include 'icon-linkedin.svg' %}
+        </a>
+      </li>
+    </ul>
+    <div class="copyright-statement">
+      <p>
+      &copy;2022 AliveCor, Inc. All Rights Reserved. US Patent Nos 8,301,232, 8,509,882 and Patents Pending. AliveCor and Kardia are trademarks of AliveCor, Inc. in the United States and other countries.
+      </p>
+    </div>
+    {% if shop.domain == 'store.kardia.com' %}
+    {% assign current_url = '' %}
+    {% case template %}
+      {% when 'page' %}
+        {% assign current_url = page.url %}
+      {% when 'collection' %}
+        {% assign current_url = collection.url %}
+      {% when 'list-collections' %}
+        {% assign current_url = shop.domain | append: '/collections' %}
+      {% when 'product' %}
+        {% assign current_url = product.url %}
+      {% when 'index' %}
+        {% assign current_url = shop.domain %}
+      {% when 'cart' %}
+        {% assign current_url = shop.domain | append: '/cart' %}
+    {% endcase %}
+    <div class="ccpa">
+      <a id="do-not-sell"
+        class="ga-tracker"
+        data-category="CCPA Link"
+        data-action="Clicked Do Not Sell My Personal Information"
+        data-label="{{ current_url }}">
+        Do Not Sell My Personal Information
+      </a>
+      <div class="confirmation">
+        <p>Your preference has been stored for this browser and device. If you clear your cookies, your preference will be forgotten.</p>
+      </div>
+    </div>
+    {% endif %}
+  </section>
+</footer>

@@ -1,0 +1,12 @@
+<div class="grid__item return-policy">
+  <p>
+    {% if product.handle == 'kardiacare-subscription-km' %}
+    AliveCor will issue you a full refund on your purchase if you contact us within 30 days of delivery. To request a refund, contact AliveCor Support at support@alivecor.com or (855) 338-8800.
+    {% else %}
+    {{ 'return_policy.p1_html' | t }}
+    {% endif %}
+  </p>
+  <p>
+    {{ 'return_policy.p2_html' | t }}
+  </p>
+</div>

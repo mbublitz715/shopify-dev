@@ -1,0 +1,444 @@
+{% if shop.domain != 'store.alivecor.co.uk' %}
+<!-- Begin ReCharge code -->
+{% include 'subscription-cart-footer' %}
+<!-- End ReCharge code -->
+{% endif %}
+<!-- /templates/cart.liquid -->
+{% comment %}
+
+  For info on test orders:
+    - General http://docs.shopify.com/manual/your-store/orders/test-orders
+    - Shopify Payments - http://docs.shopify.com/manual/more/shopify-payments/testing-shopify-payments
+
+{% endcomment %}
+
+{% if cart.item_count > 0 %}
+{% assign km_in_cart = false %}
+{% assign kmc_in_cart = false %}
+{% assign km6l_in_cart = false %}
+{% assign kcare_in_cart = false %}
+{% assign kcare_in_cart_1_2_year = false %}
+{% assign kardiaCareUrl = '/products/kardiacare' %}
+{% assign kardiamobile6lUrl = '/products/kardiamobile6l' %}
+{% assign kardiamobileCardUrl = '/products/kardiamobile-card' %}
+{% assign canadaShop = false %}
+{% if request.host == 'shop.kardiamobile.ca' %}
+  {% assign canadaShop = true %}
+{% endif %}
+{% comment %}
+{% for testItem in cart.items %}
+  {% assign kc6lEmailPromo = false %}
+  {% if testItem.product.handle contains 'kardiacare' %}
+    {% for property in testItem.properties %}
+      {% if property.first == 'email_promo_6l_kc_year' %}
+        {% assign kc6lEmailPromo = true %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+{% endcomment %}
+  <form action="/cart" method="post" novalidate class="cart table-wrap" id="cartform">
+
+    <!-- DISCOUNT CODE script for checkout ================================================== -->
+    {% include 'discount-code-cart' %}
+  <div class="cart-header">
+      <div class="wrapper">
+        <div class="cart-title">
+          <h2 class="cart">{{ 'cart.general.title' | t }}</h2>
+          <span><a href="/">&lt; Continue Shopping</a></span>
+        </div>
+        <a href="//www.shopify.com/pci-compliant?utm_source=secure&amp;utm_medium=shop" title="This online store is secured by Shopify" target="_blank" class="secure-btn"><img src="//cdn.shopify.com/s/images/badges/shopify-secure-badge-light-shadow.png" alt="Shopify secure badge" /></a>
+        <div class="checkout-button-container">
+          <input type="submit" name="checkout" class="btn" value="{{ 'cart.general.checkout' | t }}">
+        </div>
+        {% if shop.locale == 'en' %}
+          {% include 'benefit-icons-cart' %}
+        {% endif %}
+      </div>
+    </div>
+    <table class="wrapper cart-table full table--responsive">
+      <thead class="cart__row cart__header-labels">
+        <th colspan="2">{{ 'cart.label.product' | t }}</th>
+        <th>{{ 'cart.label.price' | t }}</th>
+        <th>{{ 'cart.label.quantity' | t }}</th>
+        <th class="text-right">{{ 'cart.label.total' | t }}</th>
+      </thead>
+      <tbody>
+        {% for item in cart.items %}
+          {% assign lateship = false %}
+          {% assign km-oos = false %}
+          {% assign km-six-oos = false %}
+          {% assign kc6lBundle = false %}
+          {% assign kc6lBundleKardiaCare = false %}
+          {% assign kc6lBundle6l = false %}
+          {% assign kcCardBundle = false %}
+          {% assign kcCardBundleKardiaCare = false %}
+          {% assign hideQuantity = false %}
+          {% for tag in item.product.tags %}
+            {% if tag == 'lateship' %}
+              {% assign lateship = true %}
+            {% endif %}
+          {% endfor %}
+          {% if item.product.handle == 'kardiamobile-card' %}
+            {% assign kmc_in_cart = true %}
+            {% assign hideQuantity = true %}
+          {% elsif item.product.handle == 'kardiamobile-card-member' %}
+            {% assign hideQuantity = true %}
+          {% elsif item.product.handle == 'kardiamobile' %}
+            {% assign km_in_cart = true %}
+            {% for tag in item.product.tags %}
+              {% if shop.locale == 'en' and tag == 'oos' %}
+                {% assign km-oos = true %}
+              {% endif %}
+            {% endfor%}
+          {% elsif item.product.handle == 'kardiamobile6l' %}
+            {% assign hideQuantity = true %}
+            {% assign km6l_in_cart = true %}
+            {% for tag in item.product.tags %}
+              {% if shop.locale == 'en' and tag == 'oos' %}
+                {% assign km-six-oos = true %}
+              {% endif %}
+            {% endfor%}
+            {% for property in item.properties %}
+              {% if property.first == 'kc_6l_bundle' %}
+                {% assign kc6lBundle6l = true %}
+              {% endif %}
+            {% endfor %}
+          {% elsif item.product.handle contains 'kardiacare' %}
+            {% assign hideQuantity = true %}
+            {% assign kcare_in_cart = true %}
+            {% if item.product.handle == 'kardiacare' or item.product.handle == 'kardiacare-2-year' %}
+              {% assign kcare_in_cart_1_2_year = true %}
+            {% endif %}
+            {% for property in item.properties %}
+              {% if property.first == 'kc_6l_bundle' %}
+                {% assign kc6lBundleKardiaCare = true %}
+              {% endif %}
+            {% if property.first == 'kcard_bundle' %}
+                {% assign kcCardBundleKardiaCare = true %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+          {% for property in item.properties %}
+            {% if property.first == 'kc_6l_bundle' %}
+              {% assign kc6lBundle = true %}
+            {% endif %}
+          {% if property.first == 'kcard_bundle' %}
+                {% assign kcCardBundle = true %}
+              {% endif %}
+          {% endfor %}
+          <tr class="cart__row table__section" id="{{item.id}}">
+            <td data-label="{{ 'customer.order.product' | t }}" data-layout="mobile-column">
+              {% if item.title contains "KardiaCare" and shop.domain != 'store.alivecor.co.uk' and kc6lBundleKardiaCare == false and item.product.handle != 'kardiamobile6l' and kcCardBundleKardiaCare == false and item.product.handle != 'kardiamobile-card-member' %}
+                <a href="{{ kardiaCareUrl }}">
+              {% elsif kc6lBundleKardiaCare == true %}
+                <a href="{{ kardiamobile6lUrl }}">
+              {% elsif kcCardBundleKardiaCare == true %}
+                <a href="{{ kardiamobileCardUrl }}">
+              {% else %}
+                <a href="{{ item.url }}">
+              {% endif %}
+              {% comment %}
+                More image size options at:
+                  - http://docs.shopify.com/themes/filters/product-img-url
+              {% endcomment %}
+              <img src="{{ item | img_url: 'medium' }}" alt="{{ item.title | escape }}">
+              </a>
+              {% if kc6lBundle == true %}
+                {% if item.product.handle == 'kardiamobile6l' %}
+                <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="cart__remove mobile" onclick="kc6lBundleRemove(event)">
+                  <small>{{ 'cart.general.remove' | t }}</small>
+                </a>
+                {% endif %}
+              {% elsif kcCardBundle == true %}
+                {% if item.product.handle == 'kardiamobile-card' %}
+                <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="cart__remove mobile" onclick="kcCardBundleRemove(event)">
+                  <small>{{ 'cart.general.remove' | t }}</small>
+                </a>
+                {% endif %}
+              {% else %}
+                <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="cart__remove mobile">
+                  <small>{{ 'cart.general.remove' | t }}</small>
+                </a>
+              {% endif %}
+            </td>
+            <td>
+              <h4>
+                {% if item.title contains "KardiaCare" and shop.domain != 'store.alivecor.co.uk' and kc6lBundleKardiaCare == false and kcCardBundleKardiaCare == false and item.product.handle != 'kardiamobile-card-member' %}
+                  <a href="{{ kardiaCareUrl }}">
+                    {{ item.product.title }}
+                  </a>
+                {% elsif kc6lBundleKardiaCare == true %}
+                  <a href="{{ kardiamobile6lUrl }}">
+                    {{ item.product.title }}
+                  </a>
+                {% elsif kcCardBundleKardiaCare == true %}
+                  <a href="{{ kardiamobileCardUrl }}">
+                    {{ item.product.title }}
+                  </a>
+                {% else %}
+                  <a href="{{ item.url }}">
+                    {{ item.product.title }}
+                  </a>
+                {% endif %}
+              </h4>
+              {% unless item.variant.title contains 'Default' %}
+                <small class="cart_variant">{{ item.variant.title }}</small>
+              {% endunless %}
+              {% comment %}
+                Add extra copy under product name
+              {% endcomment %}
+              {% if lateship %}
+                <p><small>Please allow 2-3 weeks for delivery.</small></p>
+              {% endif %}
+              {% if km-oos or km-six-oos %}
+                <p style="line-height: 1; margin: 6px 0 0 0;"><small>Please allow 1-2 weeks for your order to arrive.</small></p>
+              {% endif %}
+              {% if settings.cart_vendor_enable %}
+                <p>{{ item.vendor }}</p>
+              {% endif %}
+              {% if item.product.handle contains 'kardiacare-subscription-km' %}
+                <p><small>3-month commitment</small></p>
+              {% endif %}
+              {% comment %}
+              {% if item.product.handle == 'kardiamobile6l' and kc6lEmailPromo == true %}
+                <p><small>Discount applied at checkout</small></p>
+              {% endif %}
+              {% endcomment %}
+              {% comment %}
+                Optional, loop through custom product line items if available
+
+                For more info on line item properties, visit:
+                  - http://docs.shopify.com/support/your-store/products/how-do-I-collect-additional-information-on-the-product-page-Like-for-a-monogram-engraving-or-customization
+              {% endcomment %}
+              {% assign property_size = item.properties | size %}
+              {% if property_size > 0 %}
+                {% for p in item.properties %}
+                  {% unless p.last == blank or p.first == "subscription_id" or p.first == "shipping_interval_frequency" or p.first == "shipping_interval_unit_type" %}
+
+                    {% if p.first != "omron_added_pop_up" and p.first != "cp_added_pop_up" and p.first != "kc_price_test_699" and p.first != "kc_price_test_499" and p.first != "kc_6l_bundle" and p.first != "kcard_bundle" %}
+                      {{ p.first }}:
+
+                      {% comment %}
+                        Check if there was an uploaded file associated
+                      {% endcomment %}
+                      {% if p.last contains '/uploads/' %}
+                        <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                      {% else %}
+                        {{ p.last }}
+                      {% endif %}
+                      <br>
+                    {% endif %}
+                  {% endunless %}
+                {% endfor %}
+              {% endif %}
+              {% if kc6lBundle == true %}
+                {% if item.product.handle == 'kardiamobile6l' %}
+                <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="cart__remove" onclick="kc6lBundleRemove(event)">
+                  <small>{{ 'cart.general.remove' | t }}</small>
+                </a>
+                {% endif %}
+              {% elsif kcCardBundle == true %}
+                {% if item.product.handle == 'kardiamobile-card' %}
+                <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="cart__remove" onclick="kcCardBundleRemove(event)">
+                  <small>{{ 'cart.general.remove' | t }}</small>
+                </a>
+                {% endif %}
+              {% else %}
+                <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="cart__remove">
+                  <small>{{ 'cart.general.remove' | t }}</small>
+                </a>
+              {% endif %}
+            </td>
+            <td class="price-cell" data-label="{{ 'cart.label.price' | t }}">
+              <span class="h4Price price">
+                {% if item.variant.compare_at_price > item.variant.price %}
+                  <span class="red">
+                    {{ item.price | money }}
+                  </span>
+                  <span class="strikeout">
+                    {{ item.variant.compare_at_price | money }}
+                  </span>
+                {% elsif item.total_discount > 0 %}
+                  <span class="red">
+                  {{ item.price | money }}
+                  </span>
+                  <span class="strikeout">
+                    {{ item.original_price | money }}
+                  </span>
+                {% else %}
+                  {{ item.price | money }}
+                {% endif %}
+              </span>
+            </td>
+            <td data-label="{{ 'cart.label.quantity' | t }}">
+              {% if hideQuantity == true %}
+              {{ item.quantity }}
+              {% else %}
+              <input onchange="this.form.submit();" class="quantity" type="number" name="updates[]" id="updates_{{ item.key }}" value="{{ item.quantity }}" min="0" pattern="[0-9]*">
+              {% endif %}
+            </td>
+            <td data-label="{{ 'cart.label.total' | t }}" class="total-cell">
+              <span class="h3">
+                {{ item.line_price | money }}
+              </span>
+              {% if item.total_discount > 0 %}
+                <div class="discount_message">
+                <s>{{ item.original_line_price | money }}</s>
+                ({{ item.message }})
+                </div>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="wrapper grid cart__row">
+      {% if shop.domain == 'store.alivecor.com' or shop.domain == 'dev-alivecor-us.myshopify.com' %}
+      <p class="shipping-note">
+        {% if canadaShop %}
+        *If shipping to Canada please allow up to 3 weeks for delivery.<br>
+        {% endif %}
+      </p>
+      {% endif %}
+      <div class="text-right">
+        {% if kcare_in_cart %}
+          {% if km6l_in_cart or km_in_cart %}
+            {% if kcare_in_cart_1_2_year %}
+            {% if km6l_in_cart and kmc_in_cart %}
+              <p class="cart-totals">
+                  <span class="mobile-left">Device + Membership Discount</span>
+                  <span class="right">$ 39.00</span>
+                </p>
+                <p class="cart-totals">
+                  <span class="mobile-left cart__subtotal-title">{{ 'cart.general.subtotal' | t }}</span>
+                  <span class="right cart__subtotal">{{ cart.total_price | minus: 3900 | money }}</span>
+                </p>
+            {% elsif km_in_cart and kmc_in_cart %}
+            <p class="cart-totals">
+                  <span class="mobile-left">Device + Membership Discount</span>
+                  <span class="right">$ 29.00</span>
+                </p>
+                <p class="cart-totals">
+                  <span class="mobile-left cart__subtotal-title">{{ 'cart.general.subtotal' | t }}</span>
+                  <span class="right cart__subtotal">{{ cart.total_price | minus: 2900 | money }}</span>
+                </p>
+            {% else %}
+                <p class="cart-totals">
+                  <span class="mobile-left">Device + Membership Discount</span>
+                  <span class="right">$ 9.00</span>
+                </p>
+                <p class="cart-totals">
+                  <span class="mobile-left cart__subtotal-title">{{ 'cart.general.subtotal' | t }}</span>
+                  <span class="right cart__subtotal">{{ cart.total_price | minus: 900 | money }}</span>
+                </p>
+            {% endif %}
+            {% else %}
+              <p class="cart-totals">
+                <span class="mobile-left">Device + Membership Discount</span>
+                <span class="right">$ 10.00</span>
+              </p>
+               <p class="cart-totals">
+                <span class="mobile-left cart__subtotal-title">{{ 'cart.general.subtotal' | t }}</span>
+                  <span class="right cart__subtotal">{{ cart.total_price | minus: 1000 | money }}</span>
+              </p>
+            {% endif %}
+          {% else %}
+            <p class="cart-totals">
+              <span class="{% if shop.locale == 'en' %}mobile-left {% endif %}cart__subtotal-title">{{ 'cart.general.subtotal' | t }}</span>
+              <span class="right cart__subtotal">{{ cart.total_price | money }}</span>
+            </p>
+          {% endif %}
+        {% else %}
+          <p class="cart-totals">
+            <span class="{% if shop.locale == 'en' %}mobile-left {% endif %}cart__subtotal-title">{{ 'cart.general.subtotal' | t }}</span>
+            <span class="right cart__subtotal">{{ cart.total_price | money }}</span>
+          </p>
+        {% endif %}
+        {% if shop.locale == 'en' %}
+          <p class="cart-totals">
+            <span class="mobile-left">Taxes</span>
+            <span class="right">Calculated at checkout</span>
+          </p>
+          <p class="cart-totals">
+            <span class="mobile-left">Shipping</span>
+            <span class="right">FREE{% if canadaShop %}*{% endif %}</span>
+          </p>
+          <span class="shipping-desc">
+          {% if km-oos == false and km-six-oos == false and canadaShop == false %}
+            2-5 business days (USPS First Class)
+          {% endif %}
+          </span>
+        {% else %}
+          <p class="ous-cart-text">{{ 'cart.general.shipping_at_checkout' | t }}</p>
+        {% endif %}
+        <!-- marketizator start -->
+        <input id="mktz_custom" name="attributes[mktz_custom]" type="hidden" value="" />
+        <!-- marketizator end -->
+        <input type="submit" name="update" class="btn--secondary update-cart" value="{{ 'cart.general.update' | t }}">
+        <input type="submit" name="checkout" class="btn cartCheckout" value="{{ 'cart.general.checkout' | t }}">
+        <div class="clearfix"></div>
+        <a href="/" class="continue_shopping">&lt; {{ 'cart.general.continue_shopping' | t }}</a>
+      </div>
+    </div>
+  </form>
+  {% if km_in_cart %}
+  <div class="km-accessories wrapper">
+    <div class="one-half medium--one-whole small--one-whole cart-recommended-accessories">
+      {% assign grid_item_width = 'large--one-third medium--one-quarter small--one-half' %}
+      {% include 'recommended-accessories' %}
+    </div>
+  </div>
+  {% endif %}
+{% else %}
+  {% comment %}
+    The cart is empty
+  {% endcomment %}
+  <div class="wrapper">
+    <div class="cart-title empty">
+    <h2>{{ 'cart.general.title' | t }}</h2>
+    </div>
+    <p>{{ 'cart.general.empty' | t }}</p>
+    <p>
+      <a href="/" class="btn back-to-store">
+        {{ 'cart.general.continue_browsing_html' | t }}
+      </a>
+    </p>
+  </div>
+{% endif %}
+
+<!-- DataLayer pushes -->
+<script type="text/javascript">
+  var productsArray = [];
+  {% for item in cart.items %}
+    productsArray.push({
+      name: '{{ item.title }}',
+      productId: '{{ item.product_id }}',
+      quantity: '{{ item.quantity }}'
+    });
+  {% endfor %}
+  dataLayer.push({
+    revenue: '{{ cart.total_price| money_without_currency }}',
+    products: productsArray
+  });
+</script>
+
+<!-- Omniconvert Start -->
+<!-- conversions tracking code on cart; more info at https://www.omniconvert.com/help/kba/integrate-with-shopify/ -->
+<script>
+  document.onreadystatechange = function () {
+    if (document.readyState == 'complete' && typeof _mktz.getSeenVariations === 'function') {
+      var variations = _mktz.getSeenVariations();
+      var visitor = _mktz.getVisitor();
+      if (variations && visitor) {
+        var experimentData = {
+          'uid': visitor.uid,
+          'session': visitor.session_id,
+          'last_variation': variations.join('|')
+        };
+        $('#mktz_custom').val(JSON.stringify(experimentData));
+      }
+    }
+  };
+</script>
+<!-- Omniconvert End -->

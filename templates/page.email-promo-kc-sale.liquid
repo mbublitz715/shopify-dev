@@ -1,0 +1,174 @@
+<div class="span12" id="main-content">
+  <div id="page-content" class="">
+
+    {% for product in collections.kardiacare.products limit:4 %}
+    
+    {% if product.handle == 'kardiacare' %}
+
+<div>
+  {% comment %}
+    Get first variant, or deep linked one
+  {% endcomment %}
+  {% assign current_variant = product.selected_or_first_available_variant %}
+
+  <div class="grid product-single">
+    <div class="grid__item large--one-half kardiacare-table">
+      <div class="mobile-title">
+        <h1 class="h2Title product-title" itemprop="name">{{ product.title }}</h1>
+        <h2 class="h3 subtitle">Unlock these exclusive features</h2>
+      </div>
+      <div class="product-single__photos" id="ProductPhoto">
+        {% include 'kardiacare-table-us', pageName: 'product' %}
+        <img src="{{ product.images[1] | img_url: '1200x1200' }}" alt="" id="ProductPhotoImg" style="display: none;">
+      </div>
+      {% comment %}
+        Create thumbnails if we have more than one product image
+      {% endcomment %}
+      {% if product.images.size > 1 %}
+        <ul class="product-single__thumbnails grid-uniform" id="ProductThumbs">
+          <li class="grid__item one-sixth medium--one-tenth small--one-quarter">
+            <a href="" class="kardiacare-table__thumbnail">
+              <img src="{{ 'table-thumbnail.png' | asset_img_url: 'compact' }}" alt="{{ image.alt | escape }}">
+            </a>
+          </li>
+          {% for image in product.images %}
+            {% if forloop.first != true %}
+            <li class="grid__item one-sixth medium--one-tenth small--one-quarter">
+              <a href="{{ image.src | img_url: '1200x1200' }}" class="kardiacare-single__thumbnail">
+                <img src="{{ image.src | img_url: 'compact' }}" alt="{{ image.alt | escape }}">
+              </a>
+            </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+
+    <div class="grid__item large--one-half flex-order">
+      <div class="desktop-title">
+        <h1 class="h2Title product-title" itemprop="name">{{ product.title }}</h1>
+      </div>
+
+      <!-- Price stuff ======================================================== -->
+      <span id="ProductPrice" class="h2Price noFloat">
+        $9.99/month
+      </span>
+      <h2 class="h3 subtitle kardiacare">Get your <b>second month free</b> when you join today.</h2>
+
+      <!-- Add to Cart
+      ======================================================== -->
+      <form action="/cart/add" method="post" enctype="multipart/form-data" id="kardiaCareProductAddToCartForm" class="AddToCartForm form-vertical" data-productid="{{product.id}}" onsubmit="addToCartKardiaCareFlashSale(event, this)">
+
+        <div class="kardiacare-products">
+          {% assign 1month_price = "$9.99/month" %}
+          {% assign 1month_id = 32283254751297 %}
+          {% assign 1month_frequency = "1" %}
+          {% capture 1month_label %}
+          Monthly Plan ($9.99/month)
+          {% endcapture %}
+
+          <fieldset style="display: none;">
+            <div class="form-radio">
+              <label for="{{ 1year_id }}">
+                <input
+                  id="{{ 1year_id }}"
+                  name="kardiaCareMembershipLength"
+                  type="radio"
+                  data-frequency="{{ 1month_frequency }}"
+                  data-price="{{ 1month_price }}"
+                  class="field radio"
+                  value="{{ 1month_id }}"
+                  tabindex="1"
+                  onchange=""
+                  checked="checked"
+                  required
+                  autocomplete="off"
+                 />
+                 {{ 1month_label }}
+              </label>
+            </div>
+          </fieldset>
+        </div>
+
+        <button
+          type="submit"
+          name="add"
+          id="{{product.id}}AddToCart1"
+          class="btn addToCart"
+          style="margin: 0;"
+         >
+          <span id="AddToCartText">
+          {{ 'products.product.add_to_cart' | t }}
+          </span>
+        </button>
+      </form>
+
+      <div class="cool-stuff">
+        <div class="review kc">
+          <div class="h2">I &hearts; KardiaCare!</div>
+          <span class="name">Cathy, October 2020</span>
+          <p>It gives me peace of mind. After having an ablation recently, this gives me a simple means of checking my heart rhythms frequently to assure everything is in order. It is all good so far.</p>
+        </div>
+      </div>
+ 
+
+      {% comment %}
+      <div>
+        <!-- Compat link ======================================================== -->
+        <div class="compat-link">
+          <a href="#compatibility" class="scroll-to-tab">
+            See compatibility
+          </a>
+        </div>
+      </div>
+      {% endcomment %}
+
+      <!-- Product Description ====================================================== -->
+      <div class="product-description rte product mobile-main-product-description" itemprop="description">
+        {% comment %}
+          Wrap description in a div and add another div into description in admin and use styles to show hide the correct one
+        {% endcomment %}
+        {{ page.content }}
+      </div>
+    </div>
+    {% comment %}
+      If a main product, show description under the image on desktop
+    {% endcomment %}
+    <div class="grid__item large--one-whole desktop-main-product-description">
+      <!-- Product Description ====================================================== -->
+      <div class="main-product product-description rte product" itemprop="description">
+        {{ page.content }}
+      </div>
+    </div>
+    <div class="grid__item large--one-whole">
+      {% include 'kc-feature-highlight' %}
+    </div>
+  </div>
+
+  {% comment %}
+  {% include 'product-tabs' %}
+  {% endcomment %}
+
+</div>
+
+{% endif %}
+
+  {% endfor %}
+  </div><!-- #page-content -->
+</div><!-- #page-container -->
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var self = window.location.toString();
+    var querystring = self.split("?");
+    if (querystring.length > 1) {
+      var pairs = querystring[1].split("&");
+      for (i in pairs) {
+        var keyval = pairs[i].split("=");
+        if (keyval[0] === 'type' && keyval[1] === '44disc') {
+          $('#discountType').text('$44');
+        }
+      }
+    }
+  });
+</script>

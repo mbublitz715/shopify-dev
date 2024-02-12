@@ -1,0 +1,142 @@
+{% if shop.domain == 'store.alivecor.co.uk' %}
+  <!-- UK -->
+<div class="pop-up kardiacare-upsell original" id="kardiacare-upsell-popup-original">
+  <div class="screen">
+  <div class="content">
+    <a class="pop-up-close ga-tracker"
+      id="kardiacare-upsell-close"
+      data-category="KardiaCare Cart Pop Up Upsell"
+      data-action="Clicked Close"
+      data-label="Cart"></a>
+    <div class="text kardiacare-table">
+      <div class="h2Title">Detect twice as many arrhythmias when you join KardiaCare</div>
+      <div class="upsell-table-cont">
+        {% include 'rhythm-table' %}
+      </div>
+      <div class="h3 subtitle">Just £99/year</div>
+      <a class="btn ga-tracker"
+        id="kardiacare-upsell-add"
+        data-category="KardiaCare Cart Pop Up Upsell"
+        data-action="Clicked Add to cart"
+        data-label="Cart">
+        Add KardiaCare
+      </a>
+      <a id="kardiacare-upsell-no"
+        class="upsell-no ga-tracker"
+        data-category="KardiaCare Cart Pop Up Upsell"
+        data-action="Clicked No thanks"
+        data-label="Cart">
+        No thanks
+      </a>
+    </div>
+  </div>
+  </div>
+</div>
+{% endif %}
+{% if shop.domain == 'store.kardia.com' %}
+<!-- US -->
+<div class="pop-up kardiacare-upsell monthly" id="kardiacare-upsell-popup-monthly">
+  <div class="screen">
+  <div class="content">
+    <a class="pop-up-close ga-tracker"
+      id="kardiacare-upsell-close"
+      data-category="KardiaCare Cart Pop Up Upsell"
+      data-action="Clicked Close"
+      data-label="Cart"></a>
+    <div class="text kardiacare-table">
+      <div class="h2Title">Detect twice as many arrhythmias when you join KardiaCare</div>
+      
+      <div class="upsell-table-cont">
+        {% include 'rhythm-table' %}
+      </div>
+      <div class="h3 subtitle">{% if shop.domain == 'store.alivecor.co.uk'%}Only £9.99/month.{% elsif request.host == 'shop.kardiamobile.ca' %}Only $13/month.{% else %}Only $9.99/month.{% endif %}<br/>Get a <b>free month</b> when you join today.</div>
+      <div class="disclaimer">Your second month will be free.</div>
+      <a class="btn ga-tracker"
+        id="kardiacare-upsell-add-monthly"
+        data-category="KardiaCare Cart Pop Up Upsell"
+        data-action="Clicked Add to cart"
+        data-label="Cart">
+        Add KardiaCare Membership
+      </a>
+      <a id="kardiacare-upsell-no-monthly"
+        class="upsell-no ga-tracker"
+        data-category="KardiaCare Cart Pop Up Upsell"
+        data-action="Clicked No thanks"
+        data-label="Cart">
+        No thanks
+      </a>
+    </div>
+  </div>
+  </div>
+</div>
+<!-- US 6.99 -->
+<div class="pop-up kardiacare-upsell monthly-test-699" id="kardiacare-upsell-popup-monthly-699">
+  <div class="screen">
+  <div class="content">
+    <a class="pop-up-close ga-tracker"
+      id="kardiacare-upsell-close"
+      data-category="KardiaCare Cart 6.99 Pop Up Upsell"
+      data-action="Clicked Close"
+      data-label="Cart"></a>
+    <div class="text kardiacare-table">
+      <div class="h2Title">Detect twice as many arrhythmias when you join KardiaCare</div>
+      
+      <div class="upsell-table-cont">
+        {% include 'rhythm-table' %}
+      </div>
+      <div class="h3 subtitle">Only $6.99/month.<br/>Get a <b>free month</b> when you join today.</div>
+      <div class="disclaimer">Your second month will be free.</div>
+      <a class="btn ga-tracker"
+        id="kardiacare-upsell-add-monthly-699"
+        data-category="KardiaCare Cart 6.99 Pop Up Upsell"
+        data-action="Clicked Add to cart"
+        data-label="Cart">
+        Add KardiaCare Membership
+      </a>
+      <a id="kardiacare-upsell-no-monthly"
+        class="upsell-no ga-tracker"
+        data-category="KardiaCare Cart 6.99 Pop Up Upsell"
+        data-action="Clicked No thanks"
+        data-label="Cart">
+        No thanks
+      </a>
+    </div>
+  </div>
+  </div>
+</div>
+<!-- US 4.99 -->
+<div class="pop-up kardiacare-upsell monthly-test-499" id="kardiacare-upsell-popup-monthly-499">
+  <div class="screen">
+  <div class="content">
+    <a class="pop-up-close ga-tracker"
+      id="kardiacare-upsell-close"
+      data-category="KardiaCare Cart 4.99 Pop Up Upsell"
+      data-action="Clicked Close"
+      data-label="Cart"></a>
+    <div class="text kardiacare-table">
+      <div class="h2Title">Detect twice as many arrhythmias when you join KardiaCare</div>
+      
+      <div class="upsell-table-cont">
+        {% include 'rhythm-table' %}
+      </div>
+      <div class="h3 subtitle">Only $4.99/month.<br/>Get a <b>free month</b> when you join today.</div>
+      <div class="disclaimer">Your second month will be free.</div>
+      <a class="btn ga-tracker"
+        id="kardiacare-upsell-add-monthly-499"
+        data-category="KardiaCare Cart 4.99 Pop Up Upsell"
+        data-action="Clicked Add to cart"
+        data-label="Cart">
+        Add KardiaCare Membership
+      </a>
+      <a id="kardiacare-upsell-no-monthly"
+        class="upsell-no ga-tracker"
+        data-category="KardiaCare Cart 4.99 Pop Up Upsell"
+        data-action="Clicked No thanks"
+        data-label="Cart">
+        No thanks
+      </a>
+    </div>
+  </div>
+  </div>
+</div>
+{% endif %}

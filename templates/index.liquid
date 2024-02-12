@@ -1,0 +1,64 @@
+<!-- /templates/index.liquid -->
+{% comment %}
+
+  This is the homepage of your site.
+
+  More info on global variables (available on all templates):
+    - http://docs.shopify.com/themes/liquid-variables/global
+{% endcomment %}
+
+<div class="grid-uniform">
+  <h1 class="visuallyhidden">AliveCor Store Home</h1>
+  {% comment %}
+    Loop through products in your Frontpage collection.
+    This collection is created by default, but you must add products to it.
+  {% endcomment %}
+
+  {% for product in collections.main-product.products limit:4 %}
+
+    {% comment %}
+      Change the grid item width by using classes from the grid in
+      the grid_item_width variable.
+
+      Example:
+        - {% assign grid_item_width = 'large--one-third medium--one-half' %}
+    {% endcomment %}
+    {% assign grid_item_width = 'large--one-whole' %}
+    {% include 'home-main-item' %}
+
+  {% endfor %}
+
+</div>
+
+{% comment %}
+  Use class grid-uniform to have evenly sized columns clear
+  each other properly at each breakpoint.
+{% endcomment %}
+
+{% if collections.frontpage.products.length > 0 %}
+<div class="accessory-title section">
+  <a name="accessories"></a>
+  <span class="line center"></span>
+  <h2 class="h1">We also recommend</h2>
+</div>
+{% endif %}
+
+<div class="grid-uniform home-accessories">
+
+  {% comment %}
+    Loop through products in your Frontpage collection.
+    This collection is created by default, but you must add products to it.
+  {% endcomment %}
+  {% for product in collections.frontpage.products limit:6 %}
+
+    {% if collections.frontpage.products.length <= 2 %}
+      {% assign grid_item_width = 'large--one-half medium--one-half' %}
+    {% else %}
+      {% assign grid_item_width = 'large--one-half medium--one-half' %}
+    {% endif %}
+    {% assign product_collection = product.collections | map: 'handle' | join: ' ' %}
+    {% include 'home-grid-item' %}
+
+  {% endfor %}
+
+</div>

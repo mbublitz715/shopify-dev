@@ -1,0 +1,68 @@
+{% if product.handle contains 'kardiamobile-card' %}
+<section class="trust-banner-card">
+  <div class="content">
+    <div class="badge">
+      <div class="icon">
+        {% include 'icon-trusted.svg' %}
+      </div>
+      <p>FDA-cleared</p>
+    </div>
+    <div class="badge">
+      <div class="icon">
+        {% include 'icon-doctor-trusted.svg' %}
+      </div>
+      <p>The most clinically validated personal EKG technology</p>
+    </div>
+    <div class="badge">
+      <div class="icon stars">
+        {% include 'icon-shipping.svg' %}
+      </div>
+      <p>FREE SHIPPING</p>
+    </div>
+    {% if product.handle == 'kardiamobile-card' %}
+    <div class="badge">
+      <div class="icon">
+        {% include 'icon-shield-large.svg' %}
+      </div>
+      <p>Includes 1-year KardiaCare membership</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% else %}
+<section class="trust-banner {{ template.name }}">
+  <section class="main-content">
+    <div class="badge">
+      <div class="icon">
+        {% include 'icon-moneyBack.svg' %}
+      </div>
+      <p>30-DAY Money Back Guaranteed</p>
+    </div>
+    <div class="badge">
+      <div class="icon">
+        {% include 'icon-fsa.svg' %}
+      </div>
+      <p>HSA/FSA Eligible</p>
+    </div>
+    <div class="badge">
+      <div class="icon stars">
+        {% include 'icon-shipping.svg' %}
+      </div>
+      <p>FREE SHIPPING</p>
+    </div>
+    <div class="badge">
+      {% if template.suffix == 'kardiamobile6l' %}
+        <div class="icon">
+          {% include 'icon-trusted.svg' %}
+        </div>
+        <p>FDA-cleared</p>
+      {% else %}
+      <div class="icon">
+        {% include 'icon-warranty.svg' %}
+      </div>
+      <p>1-YEAR Warranty</p>
+      {% endif %}
+    </div>
+  </section>
+</section>
+{% endif %}
